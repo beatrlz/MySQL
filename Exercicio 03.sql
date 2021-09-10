@@ -1,27 +1,33 @@
-create database escola;
-use escola;
+create database db_farmacia_do_bem;
 
-create table alunos(
+use db_farmacia_do_bem;
+
+create table tb_categoria(
 id bigint auto_increment,
-nome varchar(255) not null,
-idade int not null,
-materia varchar(30),
-nota decimal(8,2),
+categoria varchar(255),
 primary key (id)
 );
-insert into alunos (nome, idade, materia, nota) values ("Lucas", 19, "Português", 4.6);
-insert into alunos (nome, idade, materia, nota) values ("Bruna", 22, "Biologia", 8.0);
-insert into alunos (nome, idade, materia, nota) values ("Jessica", 20, "Fisica", 5.5);
-insert into alunos (nome, idade, materia, nota) values ("Leonardo", 25, "Matemática", 9.8);
-insert into alunos (nome, idade, materia, nota) values ("Gabrielle", 21, "Literatura", 7.4);
-insert into alunos (nome, idade, materia, nota) values ("Beatriz", 20, "Quimica", 7.2);
-insert into alunos (nome, idade, materia, nota) values ("Juliana", 17, "História", 6.2);
-insert into alunos (nome, idade, materia, nota) values ("Matheus", 22, "Geografia", 5.0);
 
-select id, nome, idade, materia, nota from alunos where nota < 7;
-select id, nome, idade, materia, nota from alunos where nota > 7;
+insert into tb_categoria (categoria) values ("remedios");
+insert into tb_categoria (categoria) values ("perfumaria");
+insert into tb_categoria (categoria) values ("higiene");
 
-select * from alunos;
+select * from tb_categoria;
 
-update alunos set nota = 9.8 where id=1;
+create table tb_produto(
+id bigint auto_increment,
+remedio varchar(255),
+perfumaria varchar(255),
+higiene varchar (255),
+preco decimal(8,2) not null,
+quantidade int,
+categoria_id bigint,
+primary key (id),
+FOREIGN KEY (categoria_id) REFERENCES tb_categoria (id)
+);
+
+insert into tb_produto (remedio, preco, quantidade, categoria_id) values ("dipirona", 2.00, 3, 1);
+insert into tb_produto (remedio, preco, quantidade, categoria_id) values ("buscofem", 36.00, 12, 3);
+insert into tb_produto (remedio, preco, quantidade, categoria_id) values ("dorflex", 29.00, 6, 2);
+insert into tb_produto (perfumaria, preco, quantidade, categoria_id) values ("shampoo", 52.00, 4, 4);
 

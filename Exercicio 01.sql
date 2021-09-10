@@ -1,5 +1,4 @@
 create database db_generation_game_online;
-
 use db_generation_game_online;
 
 create table tb_classe(
@@ -20,7 +19,7 @@ create table tb_personagem(
 id bigint auto_increment,
 nome varchar(255)not null,
 ataque int,
-defesa int,
+defesa int, 
 classe_id bigint,
 primary key (id),
 foreign key(classe_id) references tb_classe (id)

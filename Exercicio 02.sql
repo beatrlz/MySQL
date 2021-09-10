@@ -1,26 +1,45 @@
-create database ecommerce;
-use ecommerce;
+create database db_pizzaria_legal;
 
-create table produtos(
+use db_pizzaria_legal;
+
+create table tb_categoria(
 id bigint auto_increment,
-marca varchar(255) not null,
-preco decimal(8,2),
-setor varchar(80),
-descricao varchar(255),
+categoria varchar(255),
 primary key (id)
 );
 
-insert into produtos (marca, preco, setor, descricao) values ("Nike", 1200.00, "calcados", "Tenis Air VaporMax Evo");
-insert into produtos (marca, preco, setor, descricao) values ("Adidas", 900.00, "calcados", "Tenis Ultraboost");
-insert into produtos (marca, preco, setor, descricao) values ("Puma", 690.00, "calcados", "Tenis Suede Classic");
-insert into produtos (marca, preco, setor, descricao) values ("Olympikus", 769.00, "calcados", "Anyway");
-insert into produtos (marca, preco, setor, descricao) values ("Rebook", 456.00, "calcados", "Zig VB");
+insert into tb_categoria (categoria) values ("pizza");
+insert into tb_categoria (categoria) values ("pizzaDoce");
+insert into tb_categoria (categoria) values ("borda recheada");
+insert into tb_categoria (categoria) values ("brotinho");
 
-select id, marca, preco, setor, descricao from produtos where preco <500;
-select id, marca, preco, setor, descricao from produtos where preco >500;
 
-select * from produtos;
+select * from tb_categoria;
 
-alter table produtos change nome marca varchar(255);
+create table tb_pizza(
+id bigint auto_increment,
+sabor varchar(255),
+preco decimal(8,2) not null,
+quantidade int,
+categoria_id bigint,
+primary key (id),
+FOREIGN KEY (categoria_id) REFERENCES tb_categoria (id)
+);
 
-update produtos set marca = "Nike" where id = 1;
+insert into tb_pizza (sabor, quantidade, preco, categoria_id) values ("queijo", 50, 30.00, 1);
+insert into tb_pizza (sabor, quantidade, preco, categoria_id) values ("calabresa", 45, 30.00, 1);
+insert into tb_pizza (sabor, quantidade, preco, categoria_id) values ("frango", 30, 45.00, 1);
+insert into tb_pizza (sabor, quantidade, preco, categoria_id) values ("Marguerita", 20, 35.00, 1);
+insert into tb_pizza (sabor, quantidade, preco, categoria_id) values ("Brigadeiro", 10, 45.00, 2);
+
+select * from tb_pizza;
+
+select * from tb_pizza where preco > 45.00;
+
+select * from tb_pizza where preco > 29.00 and preco < 60.00;
+
+select * from tb_pizza where sabor like "%c%";
+
+select * from tb_categoria inner join tb_pizza on tb_categoria.id = tb_pizza.categoria_id;
+
+select * from tb_categoria inner join tb_pizza on tb_categoria.id = tb_pizza.categoria_id where tb_categoria.id = 2;
